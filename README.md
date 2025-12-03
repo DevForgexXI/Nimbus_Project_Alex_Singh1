@@ -21,4 +21,5 @@ The design uses functions, structures, pointers, decision control and file handl
 
 
 
-<img width="795" height="572" alt="image" src="https://github.com/user-attachments/assets/7c45ad9a-5d88-4369-98eb-bbd6ebd82439" />
+<img width="776" height="654" alt="image" src="https://github.com/user-attachments/assets/b6c61264-c6f1-4ec8-9c38-e75255022b25" />
+
