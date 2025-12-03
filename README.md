@@ -17,3 +17,8 @@ The design uses functions, structures, pointers, decision control and file handl
 ---
 
 ## Project Structure
+
+
+
+
+<img width="795" height="572" alt="image" src="https://github.com/user-attachments/assets/7c45ad9a-5d88-4369-98eb-bbd6ebd82439" />
