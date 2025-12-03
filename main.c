@@ -2,19 +2,16 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* ------------------------ CONFIG ------------------------ */
 #define ACC_FILE "accounts.txt"
 #define TXN_FILE "transactions.txt"
 #define MINI_STATEMENT_COUNT 5
 
-/* ------------------------ DATA STRUCTURE ------------------------ */
 typedef struct {
     int account_no;
     int pin;
     double balance;
 } Account;
 
-/* ------------------------ PROTOTYPES ------------------------ */
 Account *loadAccounts(int *count);
 void saveAccounts(Account *accounts, int count);
 
@@ -31,10 +28,10 @@ void withdrawAmount(Account *accounts, int index, int count);
 void addTransaction(int acc_no, const char *type, double amount, double new_balance);
 void showMiniStatement(int acc_no);
 
-/* ------------------------ MAIN ------------------------ */
+
 int main(void) {
     int accountCount = 0;
-    Account *accounts = loadAccounts(&accountCount);   // dynamic memory (pointers)
+    Account *accounts = loadAccounts(&accountCount);   
 
     if (accounts == NULL) {
         printf("Memory allocation failed. Exiting.\n");
@@ -43,14 +40,14 @@ int main(void) {
 
     mainMenu(accounts, accountCount);
 
-    /* save final state and free memory */
+    
     saveAccounts(accounts, accountCount);
     free(accounts);
 
     return 0;
 }
 
-/* ------------------------ MENUS ------------------------ */
+
 
 void mainMenu(Account *accounts, int count) {
     int choice;
@@ -128,16 +125,15 @@ void accountMenu(Account *accounts, int index, int count) {
     }
 }
 
-/* ------------------------ FILE HANDLING ------------------------ */
 
-/* Loads accounts from file.
-   If file does not exist, create 3 default accounts and save them. */
+
+
 Account *loadAccounts(int *count) {
     FILE *fp = fopen(ACC_FILE, "r");
     int i;
 
     if (fp == NULL) {
-        /* no existing file -> create default data */
+        
         *count = 3;
         Account *accounts = (Account *)malloc((*count) * sizeof(Account));
         if (!accounts) return NULL;
@@ -168,7 +164,7 @@ Account *loadAccounts(int *count) {
     return accounts;
 }
 
-/* Saves accounts to file */
+
 void saveAccounts(Account *accounts, int count) {
     FILE *fp = fopen(ACC_FILE, "w");
     int i;
@@ -188,7 +184,7 @@ void saveAccounts(Account *accounts, int count) {
     fclose(fp);
 }
 
-/* ------------------------ AUTH & SEARCH ------------------------ */
+
 
 int findAccountIndex(Account *accounts, int count, int acc_no) {
     int i;
@@ -207,7 +203,7 @@ int authenticate(Account *accounts, int count, int acc_no, int pin) {
     return idx;
 }
 
-/* ------------------------ OPERATIONS ------------------------ */
+
 
 void showBalance(Account *accounts, int index) {
     printf("Current balance: Rs %.2lf\n", accounts[index].balance);
@@ -256,9 +252,9 @@ void withdrawAmount(Account *accounts, int index, int count) {
            accounts[index].balance);
 }
 
-/* ------------------------ TRANSACTIONS & MINI STATEMENT ------------------------ */
 
-/* Append single transaction record to file */
+
+
 void addTransaction(int acc_no, const char *type, double amount, double new_balance) {
     FILE *fp = fopen(TXN_FILE, "a");
     if (fp == NULL) {
@@ -266,14 +262,14 @@ void addTransaction(int acc_no, const char *type, double amount, double new_bala
         return;
     }
 
-    /* Format: account_no TYPE amount balance_after */
+    
     fprintf(fp, "%d %s %.2lf %.2lf\n",
             acc_no, type, amount, new_balance);
 
     fclose(fp);
 }
 
-/* Show last MINI_STATEMENT_COUNT transactions of a particular account */
+
 void showMiniStatement(int acc_no) {
     FILE *fp = fopen(TXN_FILE, "r");
     if (fp == NULL) {
@@ -289,7 +285,7 @@ void showMiniStatement(int acc_no) {
     char last[MINI_STATEMENT_COUNT][200];
     int count = 0;
 
-    /* Read entire file; keep only last N txns for this account */
+    
     while (fscanf(fp, "%d %s %lf %lf",
                   &fileAccNo, type, &amt, &bal) == 4) {
 
@@ -302,7 +298,7 @@ void showMiniStatement(int acc_no) {
                 strcpy(last[count], buffer);
                 count++;
             } else {
-                /* shift left */
+                
                 for (int i = 1; i < MINI_STATEMENT_COUNT; i++) {
                     strcpy(last[i - 1], last[i]);
                 }
