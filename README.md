@@ -11,7 +11,8 @@ This is a simple ATM simulator written in C. It supports:
 - Mini-statement
 - File I/O to persist balances
 - Modular code organized into multiple source files
-
+- Account Number 1001
+- ATM Pin 1111
 The design uses functions, structures, pointers, decision control and file handling as required in the assignment.
 
 ---
